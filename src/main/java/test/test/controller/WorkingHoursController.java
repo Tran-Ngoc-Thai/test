@@ -114,6 +114,6 @@ public class WorkingHoursController {
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Integer id) {
         service.delete(id);
-        return "redirect:/users/get";
+        return "redirect:/working-hours/get";
     }
 }

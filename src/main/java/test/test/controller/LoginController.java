@@ -88,5 +88,17 @@ public class LoginController {
             return "redirect:/home";
         }
 
+
+    }
+    @RequestMapping("/logout")
+    public String logout(HttpSession session) {
+        logger.info("Logging out user: {}", session.getAttribute("username"));
+        
+        session.removeAttribute("loggedInUser");
+        session.removeAttribute("username");
+        session.removeAttribute("role");
+        session.invalidate();
+        
+        return "redirect:/";
     }
 }
