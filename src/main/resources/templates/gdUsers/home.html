@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en"
+    th:replace="${role == 'admin'} ? ~{/gdAdmins/template.html::view(~{::main}, ~{::title})} : ~{/gdUsers/template.html::view(~{::main}, ~{::title})}">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>home</title>
+
+    </head>
+
+    <body>
+        
+        <main class="home">
+            <form method="get" action="/home">
+            <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <img src="https://azmedia.edu.vn/wp-content/uploads/2024/11/banner.jpg" class="d-block w-100" style="height: 500px;">
+                  </div>
+                  <div class="carousel-item">
+                    <img src="https://azmedia.edu.vn/wp-content/uploads/2024/05/banner-chuan-website-1536x775.jpg" class="d-block w-100" style="height: 500px;">
+                  </div>
+                </div>
+              </div>
+              <div class="container px-5 mt-5">
+                <div class="row">
+                    <div class="col-md-4 mb-5">
+                        <div class="card px-5">
+                        <img src="https://azmedia.com.vn/wp-content/uploads/2021/03/a-Quang-e1615439222236.jpg" class="card-img-top rounded-circle cen" style="width: auto; height: 300px;">
+                        <div class="card-body text-center">
+                            <h4 class="card-title" style="color:#28A745;">Lê Đình Quang</h4>
+                            <span  style="color: #808080;">Chuyên gia Marketing</span> <br> <br>
+                            <p class="card-text">Anh là người có đam mê kỳ lạ với Facebook. Anh bắt đầu thích quảng cáo từ những năm 2010. Từ một sở thích  rồi anh lại trở thành một chuyên gia về facebook Marketing.</p>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-5">
+                        <div class="card px-5">
+                            <img src="https://azmedia.com.vn/wp-content/uploads/2021/03/chuyen-gia-nguyen-thanh-truc.jpg" class="card-img-top rounded-circle cen" style="width: auto; height: 300px;">
+                            <div class="card-body text-center">
+                                <h4 class="card-title" style="color:#28A745;">Nguyễn Thành Trực</h4>
+                                <span  style="color: #808080;">Chuyên gia tư vấn</span> <br> <br>
+                                <p class="card-text">Hơn 8 năm kinh nghiệm trong tư vấn chiến lược doanh nghiệp, đào tạo Marketing online, bán hàng Facebook và huấn luyện NLP.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-5">
+                        <div class="card px-5">
+                            <img src="https://azmedia.com.vn/wp-content/uploads/2019/08/Th%E1%BA%AFng-11-1.jpg" class="card-img-top rounded-circle cen" style="width: auto; height: 300px;">
+                            <div class="card-body text-center">
+                                <h4 class="card-title" style="color:#28A745;">Phạm Quyết Thắng</h4>
+                                <span  style="color: #808080;">Chuyên gia Sales</span> <br> <br>
+                                <p class="card-text">Hơn 20 năm kinh nghiệm trong lĩnh vực Sales. Anh có đủ bí quyết để tạo mối quan hệ với bất cứ đối tượng nào và biến họ trở thành khách hàng.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        </main> 
+    </body>
+
+</html>

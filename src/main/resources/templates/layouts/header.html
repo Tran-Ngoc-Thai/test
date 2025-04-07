@@ -1,0 +1,42 @@
+<header class="p-3 mb-3 border-bottom">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <a href="/home"
+
+            class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+                <img th:src="@{https://azmedia.com.vn/wp-content/uploads/2020/11/cropped-0d7231e68dc2729c2bd3-1-300x82.jpg}" width="auto" height="52px">
+                <span>
+                    <a href="/home"
+                    style="text-decoration: none; font-size: 23px; margin-right: 20px;">
+                       <Strong>AZ Media</Strong> 
+                    </a>
+                </span>
+            </a>
+
+
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                <li th:if="${session.role == 'admin'}"><a href="/positions/get" class="nav-link px-2 link-dark">Chức vụ</a></li>
+                <li th:if="${session.role == 'admin'}"><a href="/users/get" class="nav-link px-2 link-dark">Quản lý nhân sự</a></li>
+                <li th:if="${session.role == 'admin'}"><a href="/working-hours/get" class="nav-link px-2 link-dark">Quản lý giờ làm</a></li>
+                <li th:if="${session.role == 'admin'}"><a href="/attendance/get" class="nav-link px-2 link-dark">Chấm Công</a></li>
+                <li th:if="${session.role == 'user'}"><a href="/working-hours/get" class="nav-link px-2 link-dark">Quản lý giờ làm</a></li>
+            </ul>
+            <div class="dropdown text-end">
+                <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa-solid fa-user"></i>
+                    <span th:text="${session.username} ?: 'Khách'"></span>
+                </a>
+                <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+
+                    <li th:if="${session.username}"><a class="dropdown-item" href="/hosocanhan">Chỉnh sửa hồ sơ</a></li>
+                    <li th:if="${session.username}">
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li th:if="${session.username}"><a class="dropdown-item" href="/logout">Đăng xuất</a></li>
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>

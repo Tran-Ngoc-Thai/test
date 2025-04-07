@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{/gdAdmins/template.html::view(~{::main}, ~{::title})}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý nhân sự</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <main class="users">
+        <div class="container mt-4">
+            <h2>Quản lý nhân sự</h2>
+            <hr>
+            <div th:if="${error}" class="alert alert-danger">
+                <span th:text="${error}"></span>
+            </div>
+
+            <div th:if="${success}" class="alert alert-success">
+                <span th:text="${success}"></span>
+            </div>
+            <form action="/users/get" th:object="${user}" method="post">
+                <input type="hidden" th:field="*{userID}" class="form-control mb-2"/>
+                <input type="text" th:field="*{fullName}" placeholder="Họ và tên" class="form-control mb-2"/>
+                <span
+                    th:if="${#fields.hasErrors('fullName')}"
+                    th:text="${#fields.errors('fullName')[0]}"
+                    style="color: red;"></span>
+                <input type="date" th:field="*{dateOfBirth}" placeholder="Ngày sinh" class="form-control mb-2"/>
+                <span
+                    th:if="${#fields.hasErrors('dateOfBirth')}"
+                    th:text="${#fields.errors('dateOfBirth')[0]}"
+                    style="color: red;"></span>
+                <input type="text" th:field="*{phone}" placeholder="Số điện thoại" class="form-control mb-2"/>
+                <span
+                    th:if="${#fields.hasErrors('phone')}"
+                    th:text="${#fields.errors('phone')[0]}"
+                    style="color: red;"></span>
+                <input type="email" th:field="*{email}" placeholder="Email" class="form-control mb-2"/>
+                <span
+                    th:if="${#fields.hasErrors('email')}"
+                    th:text="${#fields.errors('email')[0]}"
+                    style="color: red;"></span>
+                <input type="password" th:field="*{password}" placeholder="Mật khẩu " class="form-control mb-2"/>
+                <span
+                    th:if="${#fields.hasErrors('password')}"
+                    th:text="${#fields.errors('password')[0]}"
+                    style="color: red;"></span>
+                    <div>
+                        <label>Giới tính:</label>
+                        <div style="display: inline-flex; gap: 50px; align-items: center;">
+                            <label style="display: flex; align-items: center;">
+                                <input style="margin-top: 1px;" type="radio" th:field="*{gender}" value="true" id="male" />
+                                <span style="margin-left: 7px; margin-top: -10px;" for="male">Nam</span>
+                            </label>
+                            <label style="display: flex; align-items: center;">
+                                <input style="margin-top: 1px;" type="radio" th:field="*{gender}" value="false" id="female" />
+                                <span style="margin-left: 7px;  margin-top: -10px;" for="female">Nữ</span>
+                            </label>
+                        </div>
+                        <span th:if="${#fields.hasErrors('gender')}" 
+                              th:text="${#fields.errors('gender')[0]}" 
+                              style="color: red;"></span>
+                    </div>
+                    
+                    
+                <input type="text" th:field="*{address}" placeholder="Địa chỉ" class="form-control mb-2"/>
+                <span
+                    th:if="${#fields.hasErrors('address')}"
+                    th:text="${#fields.errors('address')[0]}"
+                    style="color: red;"></span>
+
+                    <div>
+                        <label>Vai Trò:</label>
+                        <div style="display: inline-flex; gap: 50px; align-items: center;">
+                            <label style="display: flex; align-items: center;">
+                                <input style="margin-left: 10px;" type="radio" th:field="*{role}" value="true" id="admin" />
+                                <span style="margin-left: 7px; margin-top: -10px;" for="admin">Admin</span>
+                            </label>
+                            <label style="display: flex; align-items: center;">
+                                <input type="radio" th:field="*{role}" value="false" id="user" style="margin-top: 0; vertical-align: middle;" />
+                                <span style="margin-left: -15px; display: flex; margin-top: -10px; align-items: center; width: 150px;">Nhân Viên</span>
+                            </label>
+                        </div>
+                        <span th:if="${#fields.hasErrors('role')}" 
+                              th:text="${#fields.errors('role')[0]}" 
+                              style="color: red;"></span>
+                    </div>
+
+                    <label>
+                        Chức vụ:
+                        <select th:field="*{position.positionID}" required>
+                            <option value="">-- Chọn chức vụ --</option>
+                            <option th:each="po : ${items1}" th:value="${po.positionID}" th:text="${po.positionName}"></option>
+                        </select>
+                    </label><br />
+    
+              <hr>
+              <button type="submit" class="btn btn-primary mb-3" formaction="/users/create" name="action" value="create">Create</button>
+              <button type="submit" class="btn btn-primary mb-3" formaction="/users/update" name="action" value="update">Update</button>
+                
+                <a href="/users/get" class="btn btn-secondary mb-3">Reset</a>
+            </form>
+        </div>
+
+        <div class="container mt-4">
+            <hr>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Mã Nhân Viên</th>
+                        <th>Họ Và Tên</th>
+                        <th>Số Điện Thoại</th>
+                        <th>Email</th>
+                        <th>Vai Trò</th>
+                        <th>Chức Vụ</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <th:block th:each="user : ${users}">
+                        <tr>
+                            <td th:text="${user.userID}"></td>
+                            <td th:text="${user.fullName}"></td>
+                            <td th:text="${user.phone}"></td>
+                            <td th:text="${user.email}"></td>
+                            <td th:text="${user.role} ? 'Admin' : 'Nhân viên'"></td>
+                            <td th:text="${user.position != null ? user.position.positionName : 'Admin'}"></td>
+                            <td>
+                                <a class="edit" th:href="@{|/users/edit/${user.userID}|}">Edit</a>
+                                <a
+                                    th:href="@{/users/delete/{id}(id=${user.userID})}"
+                                    class="btn btn-delete btn-danger"
+                                    onclick="return confirm('Bạn có chắc chắn muốn xóa chức vụ này?')"
+                                    >Delete</a>    
+                            </td>
+                        </tr>
+                    </th:block>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html><!-- <input type="radio" th:field="*{gender}" value="true" id="male" />
+                    <label for="male">Nam</label>      
+                    <input type="radio" th:field="*{gender}" value="false" id="female" />
+                    <label for="female">Nữ</label>    -->

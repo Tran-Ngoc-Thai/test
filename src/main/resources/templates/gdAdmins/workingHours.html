@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{/gdAdmins/template.html::view(~{::main}, ~{::title})}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý giờ làm</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <main class="users">
+        <div class="container mt-4">
+            <h2>Quản lý giờ làm</h2>
+            <hr>
+            <div th:if="${error}" class="alert alert-danger">
+                <span th:text="${error}"></span>
+            </div>
+
+            <div th:if="${success}" class="alert alert-success">
+                <span th:text="${success}"></span>
+            </div>
+
+            <form action="/working-hours/get" th:object="${wh}" method="post">
+                <input type="hidden" th:field="*{workingHourID}" class="form-control mb-2"/>
+                <input type="time" th:field="*{checkInTime}" placeholder="Giờ bắt đầu" class="form-control mb-2"/>
+                
+                <input type="time" th:field="*{checkOutTime}" placeholder="Giờ kết thúc" class="form-control mb-2"/>
+                <input type="date" th:field="*{workDate}" placeholder="Ngày làm việc" class="form-control mb-2"/>
+                <label>
+                    Nhân viên:
+                    <select th:field="*{user.userID}" required>
+                        <option value="">-- Chọn nhân viên --</option>
+                        <option th:each="us : ${userList}" th:value="${us.userID}" th:text="${us.fullName}"></option>
+                    </select>
+                </label><br />
+                <hr>
+                <button type="submit" class="btn btn-primary mb-3" formaction="/working-hours/create">Create</button>
+                <button type="submit" class="btn btn-primary mb-3" formaction="/working-hours/update">Update</button>
+                
+                <a href="/working-hours/get" class="btn btn-secondary mb-3">Reset</a>
+            </form>
+        </div>
+
+        <div class="container mt-4">
+            <hr>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Mã giờ làm</th>
+                        <th>Giờ bắt đầu</th>
+                        <th>Giờ kết thúc</th>
+                        <th>Ngày làm việc</th>
+                        <th>Nhân viên</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <th:block th:each="wh : ${whList}">
+                        <tr>
+                            <td th:text="${wh.workingHourID}"></td>
+                            <td th:text="${wh.checkInTime}"></td>
+                            <td th:text="${wh.checkOutTime}"></td>
+                            <td th:text="${wh.workDate}"></td>
+                            <td th:text="${wh.user != null ? wh.user.fullName : 'Admin'}"></td>
+                            <td >
+                                <a class="edit" th:href="@{|/working-hours/edit/${wh.workingHourID}|}">Edit</a>
+                                <a
+                                    th:href="@{/working-hours/delete/{id}(id=${wh.workingHourID})}"
+                                    class="btn btn-delete btn-danger"
+                                    onclick="return confirm('Bạn có chắc chắn muốn xóa chức vụ này?')"
+                                    >Delete</a>    
+                            </td>
+                        </tr>
+                    </th:block>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
